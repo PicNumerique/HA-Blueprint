@@ -1,15 +1,53 @@
 blueprint:
   name: Automation Clim
-  description: Regles d'automation pour clim Mode Ete / Hiver / Desactive pour Tado
+  description: Consignes d'automatatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
   domain: automation
   input:
     climate:
       name: Thermostat
-      description: Thermostat Tado contrôlant le chauffage de la pièce. 
+      description: Thermostat Tado contrôlant le chauffage de la pièce :
       selector:
         entity:
             domain: climate
-
+    winter_clim:
+      name: Bridage température maximale chauffage hiver
+      description: Bridage température minimale du chauffage en hiver (si l'utilisateur met plus, la valeur sera réinitialisé a la consigne)
+      default: 23
+      selector:
+        number:
+          min: 12.0
+          max: 30.0
+          unit_of_measurement: '°C'
+          mode: slider
+          step: 0.1
+    summer_clim:
+      name: Bridage température minimale clim été
+      description: Bridage température minimale de la climatisation en été (si l'utilisateur met moins, la valeur sera réinitialisé a la consigne)
+      default: 26
+      selector:
+        number:
+          min: 12.0
+          max: 30.0
+          unit_of_measurement: '°C'
+          mode: slider
+          step: 0.1
+    summer_mini_clim:
+      name: Température minimale piéce pour autoriser la clim été
+      description: Température minimale de la piéce  autorisant l'activation de la clim (si activé alors que température non éteinte, la clim sera éteinte)
+      default: 27
+      selector:
+        number:
+          min: 12.0
+          max: 30.0
+          unit_of_measurement: '°C'
+          mode: slider
+          step: 0.1          
+    update_frequency:
+      name: Mise a jour cycle automation
+      description: Cycle d'actualisation, /5 signigie toutes les 5 minutes
+      default: "/5"
+      selector:
+        text:
 
 triggers:
   - trigger: time_pattern
@@ -26,12 +64,12 @@ actions:
               - condition: numeric_state
                 entity_id: !input climate
                 attribute: temperature
-                above: 25
+                above: !input winter_clim
             then:
               - action: climate.set_temperature
                 metadata: {}
                 data:
-                  temperature: 23
+                  temperature: !input winter_clim
                 target:
                   device_id: 393c100fe5adc1163a15a0d579c5d00a
           - if:
@@ -94,7 +132,7 @@ actions:
           - if:
               - condition: numeric_state
                 entity_id: !input climate
-                below: 27
+                below: !input summer_mini_clim
                 attribute: current_temperature
             then:
               - action: climate.turn_off
@@ -106,12 +144,12 @@ actions:
               - condition: numeric_state
                 entity_id: !input climate
                 attribute: temperature
-                below: 26
+                below: !input summer_clim
             then:
               - action: climate.set_temperature
                 metadata: {}
                 data:
-                  temperature: 26
+                  temperature: !input summer_clim
                 target:
                   device_id: 393c100fe5adc1163a15a0d579c5d00a
           - if:
