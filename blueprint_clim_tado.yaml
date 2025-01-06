@@ -33,7 +33,7 @@ blueprint:
           step: 0.1
     summer_mini_clim:
       name: Température minimale piéce pour autoriser la clim été
-      description: Température minimale de la piéce  autorisant l'activation de la clim (si activé alors que température non éteinte, la clim sera éteinte)
+      description: Température minimale extérieur autorisant l'activation de la clim (si activé alors que température extérieur non atteinte, la clim sera éteinte)
       default: 27
       selector:
         number:
@@ -131,7 +131,7 @@ actions:
         sequence:
           - if:
               - condition: numeric_state
-                entity_id: !input climate
+                entity_id: weather.forecast_maison
                 below: !input summer_mini_clim
                 attribute: current_temperature
             then:
