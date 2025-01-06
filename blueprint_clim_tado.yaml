@@ -71,7 +71,7 @@ actions:
                 data:
                   temperature: !input winter_clim
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "18:00:00"
@@ -87,7 +87,7 @@ actions:
                 data:
                   temperature: 19
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "19:00:00"
@@ -103,7 +103,7 @@ actions:
                 data:
                   temperature: 19
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "20:00:00"
@@ -113,7 +113,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "23:00:00"
@@ -123,7 +123,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
       - conditions:
           - condition: state
             entity_id: input_select.mode
@@ -139,7 +139,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: numeric_state
                 entity_id: !input climate
@@ -151,7 +151,7 @@ actions:
                 data:
                   temperature: !input summer_clim
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "12:00:00"
@@ -161,7 +161,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "18:00:00"
@@ -171,7 +171,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "19:00:00"
@@ -181,7 +181,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "20:00:00"
@@ -191,7 +191,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "22:00:00"
@@ -201,7 +201,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
           - if:
               - condition: time
                 after: "23:00:00"
@@ -211,7 +211,7 @@ actions:
                 metadata: {}
                 data: {}
                 target:
-                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+                  entity_id: !input climate
       - conditions:
           - condition: state
             entity_id: input_select.mode
