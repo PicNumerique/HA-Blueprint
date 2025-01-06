@@ -51,7 +51,7 @@ blueprint:
 
 triggers:
   - trigger: time_pattern
-    minutes: /5
+    minutes: !input update_frequency
 conditions: []
 actions:
   - choose:
