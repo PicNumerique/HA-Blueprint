@@ -5,7 +5,7 @@ blueprint:
   input:
     climate:
       name: Thermostat
-      description: Thermostat Tado contrôlant le chauffage de la pièce :
+      description: Thermostat Tado contrôlant le chauffage de la pièce
       selector:
         entity:
             domain: climate
