@@ -1,6 +1,6 @@
 blueprint:
-  name: Automation Clim
-  description: Consignes d'automatatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
+  name: Climate control Tado Bureau
+  description: Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
   domain: automation
   input:
     climate:
