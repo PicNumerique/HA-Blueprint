@@ -133,7 +133,7 @@ actions:
               - condition: numeric_state
                 entity_id: weather.forecast_maison
                 below: !input summer_mini_clim
-                attribute: current_temperature
+                attribute: temperature
             then:
               - action: climate.turn_off
                 metadata: {}
