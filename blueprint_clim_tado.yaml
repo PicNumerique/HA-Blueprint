@@ -1,0 +1,182 @@
+blueprint:
+  name: Automation Clim
+  description: Regles d'automation pour clim Mode Ete / Hiver / Desactive pour Tado
+  domain: automation
+  input:
+    climate:
+      name: Thermostat
+      description: Thermostat Tado contrôlant le chauffage de la pièce. 
+      selector:
+        entity:
+            domain: climate
+
+
+triggers:
+  - trigger: time_pattern
+    minutes: /5
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: input_select.mode
+            state: HIVER
+        sequence:
+          - if:
+              - condition: numeric_state
+                entity_id: !input climate
+                attribute: temperature
+                above: 25
+            then:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  temperature: 23
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "18:00:00"
+                before: "18:10:00"
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: !input climate
+                    state: "off"
+            then:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  temperature: 19
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "19:00:00"
+                before: "19:10:00"
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: !input climate
+                    state: "off"
+            then:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  temperature: 19
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "20:00:00"
+                before: "20:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "23:00:00"
+                before: "06:00:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+      - conditions:
+          - condition: state
+            entity_id: input_select.mode
+            state: ETE
+        sequence:
+          - if:
+              - condition: numeric_state
+                entity_id: !input climate
+                below: 27
+                attribute: current_temperature
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: numeric_state
+                entity_id: !input climate
+                attribute: temperature
+                below: 26
+            then:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  temperature: 26
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "12:00:00"
+                before: "12:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "18:00:00"
+                before: "18:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "19:00:00"
+                before: "19:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "20:00:00"
+                before: "20:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "22:00:00"
+                before: "22:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+          - if:
+              - condition: time
+                after: "23:00:00"
+                before: "07:10:00"
+            then:
+              - action: climate.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  device_id: 393c100fe5adc1163a15a0d579c5d00a
+      - conditions:
+          - condition: state
+            entity_id: input_select.mode
+            state: DESACTIVE
+        sequence: []
+mode: single
