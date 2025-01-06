@@ -44,7 +44,7 @@ blueprint:
           step: 0.1          
     update_frequency:
       name: Mise a jour cycle automation
-      description: Cycle d'actualisation, /5 signigie toutes les 5 minutes
+      description: Cycle d'actualisation, /5 signifie une évaluation toutes les 5 minutes
       default: "/5"
       selector:
         text:
