@@ -65,6 +65,11 @@ actions:
                 entity_id: !input climate
                 attribute: temperature
                 above: !input winter_clim
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: !input climate
+                    state: "off"                
             then:
               - action: climate.set_temperature
                 metadata: {}
