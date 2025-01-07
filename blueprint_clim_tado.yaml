@@ -56,8 +56,7 @@ blueprint:
           filter:
             - domain: 
               - sensor
-              - weather
-            - device_class:
+              device_class:
               - temperature              
 triggers:
   - trigger: time_pattern
