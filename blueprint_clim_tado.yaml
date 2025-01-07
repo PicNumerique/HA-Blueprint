@@ -55,10 +55,7 @@ blueprint:
         entity:
           filter:
             - domain: 
-              - weather
               - sensor
-            - device_class:
-              - temperature
               
 triggers:
   - trigger: time_pattern
