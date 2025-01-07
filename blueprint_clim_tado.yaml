@@ -48,7 +48,7 @@ blueprint:
       default: "/5"
       selector:
         text:
-    temperature_entity:
+    temperature_ext_entity:
       name: Sonde temperature extérieur
       default: "sensor.coworking_temperature_exterieure"
       selector:
@@ -147,7 +147,7 @@ actions:
         sequence:
           - if:
               - condition: numeric_state
-                entity_id: weather.forecast_maison
+                entity_id: !input temperature_ext_entity
                 below: !input summer_mini_clim
                 attribute: temperature
             then:
