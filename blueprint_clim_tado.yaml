@@ -55,9 +55,9 @@ blueprint:
         entity:
           filter:
             - domain: 
-              - sensor
+                - sensor
               device_class:
-              - temperature              
+                - temperature              
 triggers:
   - trigger: time_pattern
     minutes: !input update_frequency
