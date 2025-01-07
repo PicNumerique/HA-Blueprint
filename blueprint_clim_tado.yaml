@@ -56,7 +56,9 @@ blueprint:
           filter:
             - domain: 
               - sensor
-              
+              - weather
+            - device_class:
+              - temperature              
 triggers:
   - trigger: time_pattern
     minutes: !input update_frequency
@@ -146,7 +148,7 @@ actions:
               - condition: numeric_state
                 entity_id: !input temperature_ext_entity
                 below: !input summer_mini_clim
-                attribute: temperature
+                #attribute: temperature
             then:
               - action: climate.turn_off
                 metadata: {}
