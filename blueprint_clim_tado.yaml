@@ -5,16 +5,16 @@ blueprint:
          **Version: 1.0**
          
                ### EN MODE HIVER   
-                  - Si température du tado supérieur à "winter_clim", alors mise à jour à "winter_clim" si allumé
+                  - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
                   - Entre 18H et 18H10 => Bascule à 19° si tado allumé
                   - Entre 19H et 19H10 => Bascule à 19° si tado allumé
                   - Entre 20H et 20H10 => Extinction du tado
                   - Entre 21H et 23H59 => Extinction du tado
               
                ### EN MODE ETE
-                 - Si température EXTERIEUR inférieur à "summer_mini_clim", alors extinction du tado
+                 - Si température "capteur extérieur" inférieur à "Seuil T° minimale activation clim été", alors extinction du tado
                  - Cela signifie qu'aucun mode ne sera possible si température extérieur inférieur a 27° en mode été, la consigne n'est pas un peu haute ?
-                 - Si température du tado inférieur à "summer_clim", alors mise à jour à "summer_clim" si allumé
+                 - Si température du tado inférieur à "T° bridage mini été", alors mise à jour à "T° bridage mini été" si allumé
                  - Entre 12H et 12H10 => Extinction du tado
                  - Entre 18H et 18H10 => Extinction du tado
                  - Entre 19H et 19H10 => Extinction du tado
@@ -56,7 +56,7 @@ blueprint:
           mode: slider
           step: 0.1
     summer_mini_clim:
-      name: Température minimale piéce pour autoriser la clim été
+      name: Température minimale extérieur pour autoriser la clim été
       description: Température minimale extérieur autorisant l'activation de la clim (si activé alors que température extérieur non atteinte, la clim sera éteinte)
       default: 27
       selector:
