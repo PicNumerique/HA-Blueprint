@@ -48,7 +48,18 @@ blueprint:
       default: "/5"
       selector:
         text:
-
+    temperature_entity:
+      name: Sonde temperature extérieur
+      default: "sensor.coworking_temperature_exterieure"
+      selector:
+        entity:
+          filter:
+            - domain: 
+              - weather
+              - sensor
+            - device_class:
+              - temperature
+              
 triggers:
   - trigger: time_pattern
     minutes: !input update_frequency
