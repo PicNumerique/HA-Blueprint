@@ -1,26 +1,27 @@
 blueprint:
   name: Climate control Tado Bureau
   description: Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
-                - EN MODE HIVER   
-                   * Si température du tado supérieur à 23°, alors mise à jour à 23° si allumé
-                   * Entre 18H et 18H10 => Bascule à 19° si tado allumé
-                   * Entre 19H et 19H10 => Bascule à 19° si tado allumé
-                   * Entre 20H et 20H10 => Extinction du tado
-                   * Entre 21H et 23H59 => Extinction du tado
+  
+                 ### EN MODE HIVER   
+                   - Si température du tado supérieur à "winter_clim", alors mise à jour à "winter_clim" si allumé
+                   - Entre 18H et 18H10 => Bascule à 19° si tado allumé
+                   - Entre 19H et 19H10 => Bascule à 19° si tado allumé
+                   - Entre 20H et 20H10 => Extinction du tado
+                   - Entre 21H et 23H59 => Extinction du tado
               
-              - EN MODE ETE
-                 * Si température EXTERIEUR inférieur à 27°, alors extinction du tado
-                 * Cela signifie qu'aucun mode ne sera possible si température extérieur inférieur a 27° en mode été, la consigne n'est pas un peu haute ?
-                 * Si température du tado inférieur à 26°, alors mise à jour à 26° si allumé
-                 * Entre 12H et 12H10 => Extinction du tado
-                 * Entre 18H et 18H10 => Extinction du tado
-                 * Entre 19H et 19H10 => Extinction du tado
-                 * Entre 20H et 20H10 => Extinction du tado
-                 * Entre 22H et 22H10 => Extinction du tado
-                 * Entre 23H et 23H59 => Extinction du tado
+               ### EN MODE ETE
+                 - Si température EXTERIEUR inférieur à "summer_mini_clim", alors extinction du tado
+                 - Cela signifie qu'aucun mode ne sera possible si température extérieur inférieur a 27° en mode été, la consigne n'est pas un peu haute ?
+                 - Si température du tado inférieur à "summer_clim", alors mise à jour à "summer_clim" si allumé
+                 - Entre 12H et 12H10 => Extinction du tado
+                 - Entre 18H et 18H10 => Extinction du tado
+                 - Entre 19H et 19H10 => Extinction du tado
+                 - Entre 20H et 20H10 => Extinction du tado
+                 - Entre 22H et 22H10 => Extinction du tado
+                 - Entre 23H et 23H59 => Extinction du tado
 
-              - EN MODE DESACTIVE
-                 * RAS
+               ### EN MODE DESACTIVE
+                 - RAS
                  
   domain: automation
   input:
