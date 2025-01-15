@@ -7,8 +7,8 @@ blueprint:
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
-                  - Entre 18H et 18H10 => Bascule à 19° si tado allumé
-                  - Entre 19H et 19H10 => Bascule à 19° si tado allumé
+                  - Entre 18H et 18H10 => Bascule à 19° (Température defaut hiver) si tado allumé
+                  - Entre 19H et 19H10 => Bascule à 19° (Température defaut hiver) si tado allumé
                   - Entre 20H et 20H10 => Extinction du tado
                   - Entre 21H et 23H59 => Extinction du tado
               
@@ -45,6 +45,17 @@ blueprint:
           unit_of_measurement: '°C'
           mode: slider
           step: 0.1
+    winter_defaut:
+      name: Température defaut hiver si tado allumé a heure fixe
+      description: Bascule a cette température defaut si tadoo allumé a 18h et 19h
+      default: 19
+      selector:
+        number:
+          min: 12.0
+          max: 30.0
+          unit_of_measurement: '°C'
+          mode: slider
+          step: 0.1          
     summer_clim:
       name: Bridage température minimale clim été
       description: Bridage température minimale de la climatisation en été (si l'utilisateur met moins, la valeur sera réinitialisé a la consigne)
@@ -124,7 +135,7 @@ actions:
               - action: climate.set_temperature
                 metadata: {}
                 data:
-                  temperature: 19
+                  temperature: !input winter_defaut
                 target:
                   entity_id: !input climate
           - if:
@@ -140,7 +151,7 @@ actions:
               - action: climate.set_temperature
                 metadata: {}
                 data:
-                  temperature: 19
+                  temperature: !input winter_defaut
                 target:
                   entity_id: !input climate
           - if:
