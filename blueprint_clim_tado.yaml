@@ -7,8 +7,8 @@ blueprint:
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
-                  - Entre 18H et 18H10 => Bascule à 19° (Température defaut hiver) si tado allumé
-                  - Entre 19H et 19H10 => Bascule à 19° (Température defaut hiver) si tado allumé
+                  - Entre 18H et 18H10 => Bascule à 19° chauffage (Température defaut hiver) si tado allumé
+                  - Entre 19H et 19H10 => Bascule à 19° chauffage (Température defaut hiver) si tado allumé
                   - Entre 20H et 20H10 => Extinction du tado
                   - Entre 23H et 23H59 => Extinction du tado
                   - Entre 1H et 6H => Activation clim si inférieur a consigneON et désactivation arrivé consigneOFF (température réglé sur consigneOFF)
