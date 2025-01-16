@@ -159,6 +159,7 @@ actions:
               - action: climate.set_temperature
                 metadata: {}
                 data:
+                  hvac_mode: heat
                   temperature: !input winter_defaut
                 target:
                   entity_id: !input climate
@@ -175,6 +176,7 @@ actions:
               - action: climate.set_temperature
                 metadata: {}
                 data:
+                  hvac_mode: heat
                   temperature: !input winter_defaut
                 target:
                   entity_id: !input climate
