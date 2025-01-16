@@ -3,7 +3,7 @@ blueprint:
   description: >
          ### Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
          
-         ### Version: 1.3
+         ### Version: 1.4
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
