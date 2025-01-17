@@ -61,7 +61,7 @@ blueprint:
     winter_consigneON:
       name: Température consigne ON clim hiver
       description: Température a laquelle le tado s'allume la nuit en hiver si T° consigne atteinte
-      default: 12
+      default: 14
       selector:
         number:
           min: 9.0
