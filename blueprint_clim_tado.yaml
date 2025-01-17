@@ -3,7 +3,7 @@ blueprint:
   description: >
          ### Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
          
-         ### Version: 1.4
+         ### Version: 1.5
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
@@ -156,13 +156,18 @@ actions:
                     entity_id: !input climate
                     state: "off"
             then:
-              - action: climate.set_temperature
+              - action: climate.set_hvac_mode
                 metadata: {}
                 data:
                   hvac_mode: heat
+                target:
+                  entity_id: !input climate               
+              - action: climate.set_temperature
+                metadata: {}
+                data:
                   temperature: !input winter_defaut
                 target:
-                  entity_id: !input climate
+                  entity_id: !input climate              
           - if:
               - condition: time
                 after: "19:00:00"
@@ -173,10 +178,15 @@ actions:
                     entity_id: !input climate
                     state: "off"
             then:
-              - action: climate.set_temperature
+              - action: climate.set_hvac_mode
                 metadata: {}
                 data:
                   hvac_mode: heat
+                target:
+                  entity_id: !input climate   
+              - action: climate.set_temperature
+                metadata: {}
+                data:
                   temperature: !input winter_defaut
                 target:
                   entity_id: !input climate
@@ -212,10 +222,15 @@ actions:
                         attribute: current_temperature
                         below: !input winter_consigneON
                     sequence:
-                      - action: climate.set_temperature
+                      - action: climate.set_hvac_mode
                         metadata: {}
                         data:
                           hvac_mode: heat
+                        target:
+                          entity_id: !input climate   
+                      - action: climate.set_temperature
+                        metadata: {}
+                        data:
                           temperature: !input winter_consigneOFF
                         target:
                           entity_id: !input climate
