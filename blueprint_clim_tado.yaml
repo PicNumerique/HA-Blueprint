@@ -16,7 +16,6 @@ blueprint:
               
                ### EN MODE ETE
                  - Si température "capteur extérieur" inférieur à "Seuil T° minimale activation clim été", alors extinction du tado
-                 - Cela signifie qu'aucun mode ne sera possible si température extérieur inférieur a 27° en mode été, la consigne n'est pas un peu haute ?
                  - Si température du tado inférieur à "T° bridage mini été", alors mise à jour à "T° bridage mini été" si allumé
                  - Entre 12H et 12H10 => Extinction du tado
                  - Entre 18H et 18H10 => Extinction du tado
@@ -83,7 +82,7 @@ blueprint:
     summer_clim:
       name: Bridage température minimale clim été
       description: Bridage température minimale de la climatisation en été (si l'utilisateur met moins, la valeur sera réinitialisé a la consigne)
-      default: 26
+      default: 22
       selector:
         number:
           min: 12.0
@@ -94,7 +93,7 @@ blueprint:
     summer_mini_clim:
       name: Température minimale extérieur pour autoriser la clim été
       description: Température minimale extérieur autorisant l'activation de la clim (si activé alors que température extérieur non atteinte, la clim sera éteinte)
-      default: 27
+      default: 25
       selector:
         number:
           min: 12.0
