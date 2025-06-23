@@ -3,7 +3,7 @@ blueprint:
   description: >
          ### Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
          
-         ### Version: 1.7
+         ### Version: 1.8
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
@@ -93,7 +93,7 @@ blueprint:
     summer_mini_clim:
       name: Température minimale extérieur pour autoriser la clim été
       description: Température minimale extérieur autorisant l'activation de la clim (si activé alors que température extérieur non atteinte, la clim sera éteinte)
-      default: 25
+      default: 20
       selector:
         number:
           min: 12.0
