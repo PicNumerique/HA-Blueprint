@@ -17,6 +17,7 @@ blueprint:
                ### EN MODE ETE
                  - Si température "capteur extérieur" inférieur à "Seuil T° minimale activation clim été", alors extinction du tado
                  - Si température du tado inférieur à "T° bridage mini été", alors mise à jour à "T° bridage mini été" si allumé
+                 - Si statut tado différent de off ou clim, bascule en mode clim (cool) sur la température minimale clim été
                  - Entre 12H et 12H10 => Extinction du tado
                  - Entre 18H et 18H10 => Extinction du tado
                  - Entre 19H et 19H10 => Extinction du tado
@@ -293,6 +294,31 @@ actions:
                   temperature: !input summer_clim
                 target:
                   entity_id: !input climate
+
+          - if:
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: !input climate
+                    state: "off"
+                  - condition: state
+                    entity_id: !input climate
+                    state: cool
+            then: 
+              - action: climate.set_hvac_mode
+                metadata: {}
+                data:
+                  hvac_mode: cool
+                target:
+                  entity_id: !input climate             
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  temperature: !input summer_clim
+                target:
+                  entity_id: !input climate
+
+
           - if:
               - condition: time
                 after: "12:00:00"
