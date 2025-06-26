@@ -3,7 +3,7 @@ blueprint:
   description: >
          ### Consignes d'automatisation de bureaux pour clim suivant mode Ete / Hiver / Desactive pour Tado
          
-         ### Version: 1.9
+         ### Version: 2.0
          
                ### EN MODE HIVER   
                   - Si température du tado supérieur à "T° bridage max hiver", alors mise à jour à "T° bridage max hiver" si allumé
@@ -18,12 +18,12 @@ blueprint:
                  - Si température "capteur extérieur" inférieur à "Seuil T° minimale activation clim été", alors extinction du tado
                  - Si température du tado inférieur à "T° bridage mini été", alors mise à jour à "T° bridage mini été" si allumé
                  - Si état tado différent de off ou clim, bascule en mode clim (cool) sur la température minimale clim été
-                 - Entre 12H et 12H10 => Extinction du tado
-                 - Entre 18H et 18H10 => Extinction du tado
-                 - Entre 19H et 19H10 => Extinction du tado
-                 - Entre 20H et 20H10 => Extinction du tado
-                 - Entre 22H et 22H10 => Extinction du tado
-                 - Entre 23H et 23H59 => Extinction du tado
+                 - A 12H => Extinction du tado
+                 - A 18H => Extinction du tado
+                 - A 19H => Extinction du tado
+                 - A 20H => Extinction du tado
+                 - A 22H => Extinction du tado
+                 - A 23H => Extinction du tado
 
                ### EN MODE DESACTIVE
                  - AUCUNE ACTION
@@ -321,8 +321,8 @@ actions:
 
           - if:
               - condition: time
-                after: "12:00:00"
-                before: "12:10:00"
+                after: "11:59:00"
+                before: "12:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
@@ -331,8 +331,8 @@ actions:
                   entity_id: !input climate
           - if:
               - condition: time
-                after: "18:00:00"
-                before: "18:10:00"
+                after: "17:59:00"
+                before: "18:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
@@ -341,8 +341,8 @@ actions:
                   entity_id: !input climate
           - if:
               - condition: time
-                after: "19:00:00"
-                before: "19:10:00"
+                after: "18:59:00"
+                before: "19:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
@@ -351,8 +351,8 @@ actions:
                   entity_id: !input climate
           - if:
               - condition: time
-                after: "20:00:00"
-                before: "20:10:00"
+                after: "19:59:00"
+                before: "20:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
@@ -361,8 +361,8 @@ actions:
                   entity_id: !input climate
           - if:
               - condition: time
-                after: "22:00:00"
-                before: "22:10:00"
+                after: "21:59:00"
+                before: "22:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
@@ -371,8 +371,8 @@ actions:
                   entity_id: !input climate
           - if:
               - condition: time
-                after: "23:00:00"
-                before: "23:59:00"
+                after: "22:59:00"
+                before: "23:02:00"
             then:
               - action: climate.turn_off
                 metadata: {}
