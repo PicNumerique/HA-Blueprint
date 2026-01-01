@@ -1,0 +1,131 @@
+blueprint:
+  name: Gestion complète clim
+  description: >
+    Allume une clim selon horaire ou température, coupe après 2h, et sécurité à 01h.
+  domain: automation
+  input:
+    climate_entity:
+      name: Climatisation
+      description: Entité climate à contrôler
+      selector:
+        entity:
+          domain: climate
+
+    temp_sensor:
+      name: Capteur de température
+      selector:
+        entity:
+          domain: sensor
+
+    presence_group:
+      name: Groupe de présence
+      selector:
+        entity:
+          domain: group
+
+    seuil_temperature:
+      name: Seuil de déclenchement température
+      default: 16
+      selector:
+        number:
+          min: 5
+          max: 25
+          step: 0.5
+
+    consigne_temperature:
+      name: Température de consigne
+      default: 19
+      selector:
+        number:
+          min: 10
+          max: 30
+          step: 0.5
+
+    heure_on:
+      name: Heure d’allumage programmée
+      default: "19:00:00"
+      selector:
+        time: {}
+
+    heure_securite:
+      name: Heure sécurité OFF
+      default: "01:00:00"
+      selector:
+        time: {}
+
+    duree_fonctionnement:
+      name: Durée avant extinction automatique
+      default: "02:00:00"
+      selector:
+        duration: {}
+
+triggers:
+  - trigger: time
+    at: !input heure_on
+    id: soir_on
+
+  - trigger: numeric_state
+    entity_id: !input temp_sensor
+    below: !input seuil_temperature
+    id: temp_basse
+
+  - trigger: time
+    at: !input heure_securite
+    id: securite_off
+
+  - trigger: state
+    entity_id: !input presence_group
+    to: "home"
+    id: home
+
+conditions:
+  - condition: state
+    entity_id: !input presence_group
+    state: "home"
+
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - soir_on
+              - temp_basse
+        sequence:
+          - action: climate.set_temperature
+            target:
+              entity_id: !input climate_entity
+            data:
+              temperature: !input consigne_temperature
+              hvac_mode: heat
+          - delay: !input duree_fonctionnement
+          - action: climate.turn_off
+            target:
+              entity_id: !input climate_entity
+
+      - conditions:
+          - condition: trigger
+            id: home
+          - condition: time
+            after: !input heure_on
+            before: "05:00:00"
+        sequence:
+          - action: climate.set_temperature
+            target:
+              entity_id: !input climate_entity
+            data:
+              temperature: !input consigne_temperature
+              hvac_mode: heat
+          - delay: !input duree_fonctionnement
+          - action: climate.turn_off
+            target:
+              entity_id: !input climate_entity
+
+      - conditions:
+          - condition: trigger
+            id: securite_off
+        sequence:
+          - action: climate.turn_off
+            target:
+              entity_id: !input climate_entity
+
+mode: single
