@@ -1,12 +1,12 @@
 blueprint:
   name: Gestion complète clim
   description: >
-    Allume une clim selon horaire ou température, coupe après 2h, et sécurité à 01h.
+    Allume une clim selon horaire ou température, coupe après 2h, sécurité à 01h,
+    arrêt automatique à 08h, et ne fonctionne que si présence + entre 19h et 08h.
   domain: automation
   input:
     climate_entity:
       name: Climatisation
-      description: Entité climate à contrôler
       selector:
         entity:
           domain: climate
@@ -53,6 +53,12 @@ blueprint:
       selector:
         time: {}
 
+    heure_off_matin:
+      name: Heure arrêt du matin
+      default: "08:00:00"
+      selector:
+        time: {}
+
     duree_fonctionnement:
       name: Durée avant extinction automatique
       default: "02:00:00"
@@ -73,15 +79,28 @@ triggers:
     at: !input heure_securite
     id: securite_off
 
+  - trigger: time
+    at: !input heure_off_matin
+    id: matin_off
+
   - trigger: state
     entity_id: !input presence_group
     to: "home"
     id: home
 
 conditions:
+  # Présence obligatoire
   - condition: state
     entity_id: !input presence_group
     state: "home"
+
+  # Fonctionnement uniquement entre 19h et 08h
+  - condition: or
+    conditions:
+      - condition: time
+        after: "19:00:00"
+      - condition: time
+        before: "08:00:00"
 
 actions:
   - choose:
@@ -122,7 +141,9 @@ actions:
 
       - conditions:
           - condition: trigger
-            id: securite_off
+            id:
+              - securite_off
+              - matin_off
         sequence:
           - action: climate.turn_off
             target:
