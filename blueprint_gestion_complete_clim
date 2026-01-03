@@ -94,14 +94,6 @@ conditions:
     entity_id: !input presence_group
     state: "home"
 
-  # Fonctionnement uniquement entre 19h et 08h
-  - condition: or
-    conditions:
-      - condition: time
-        after: "19:00:00"
-      - condition: time
-        before: "08:00:00"
-
 actions:
   - choose:
       - conditions:
@@ -109,6 +101,13 @@ actions:
             id:
               - soir_on
               - temp_basse
+          # Fonctionnement uniquement entre 19h et 08h
+          - condition: or
+            conditions:
+              - condition: time
+                after: "19:00:00"
+              - condition: time
+                before: "08:00:00"
         sequence:
           - action: climate.set_temperature
             target:
