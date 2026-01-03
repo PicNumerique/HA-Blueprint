@@ -103,6 +103,10 @@ triggers:
       entity_id: !input timer_entity
     id: timer_fini
 
+  - trigger: event
+    event_type: automation.trigger
+    id: manuel
+
 conditions:
   # Présence obligatoire
   - condition: state
@@ -159,6 +163,25 @@ actions:
               entity_id: !input timer_entity
             data:
               duration: !input duree_fonctionnement
+
+      # --- Allumage manuel ---
+      - conditions:
+          - condition: trigger
+            id: manuel
+        sequence:
+          - action: climate.set_temperature
+            target:
+              entity_id: !input climate_entity
+            data:
+              temperature: !input consigne_temperature
+              hvac_mode: heat
+
+          - action: timer.start
+            target:
+              entity_id: !input timer_entity
+            data:
+              duration: !input duree_fonctionnement
+
 
       # --- Arrêt sécurité ou matin ---
       - conditions:
