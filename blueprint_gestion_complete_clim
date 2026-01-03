@@ -183,22 +183,4 @@ actions:
             target:
               entity_id: !input climate_entity
 
-      # --- Allumage manuel ---
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger is none }}"
-        sequence:
-          - action: climate.set_temperature
-            target:
-              entity_id: !input climate_entity
-            data:
-              temperature: !input consigne_temperature
-              hvac_mode: heat
-
-          - action: timer.start
-            target:
-              entity_id: !input timer_entity
-            data:
-              duration: !input duree_fonctionnement
-
 mode: single
